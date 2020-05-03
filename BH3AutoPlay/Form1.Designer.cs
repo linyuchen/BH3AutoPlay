@@ -76,7 +76,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(550, 72);
             this.label3.TabIndex = 3;
-            this.label3.Text = "1p 山吹 超限白手 毕毕牛（无元素词缀）\r\n2p 蓝毛 重剑王蛇 古古牛\r\n3P 粉毛 睡美人 卡卡米（有元素词缀，面板1343）";
+            this.label3.Text = "1p 山吹 超限百手 毕毕牛（无元素词缀）\r\n2p 蓝毛 重剑王蛇 古古牛\r\n3P 粉毛 睡美人 卡卡米（有元素词缀，面板1343）";
             // 
             // label4
             // 
