@@ -127,8 +127,8 @@ namespace BH3AutoPlay
                         shieldPos.Y = windowPos.Y + 38;
                         healthPos.X = windowPos.X + 380;
                         healthPos.Y = windowPos.Y + 22;
-                        isFightingPos.X = windowPos.X + 42;
-                        isFightingPos.Y = windowPos.Y + 60;
+                        isFightingPos.X = windowPos.X + 68;
+                        isFightingPos.Y = windowPos.Y + 24;
                         return BH3WindowRatio.p720;
                     }
                 default:

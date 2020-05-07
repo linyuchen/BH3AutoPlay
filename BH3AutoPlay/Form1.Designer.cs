@@ -74,7 +74,7 @@
             // labelScriptDesc
             // 
             this.labelScriptDesc.AutoSize = true;
-            this.labelScriptDesc.Location = new System.Drawing.Point(200, 244);
+            this.labelScriptDesc.Location = new System.Drawing.Point(200, 224);
             this.labelScriptDesc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelScriptDesc.Name = "labelScriptDesc";
             this.labelScriptDesc.Size = new System.Drawing.Size(106, 24);
