@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace BH3AutoPlay
 {
+    class AutoPlayInfo
+    {
+        public String name;
+        public String description;
+        public String videoUrl;
+    }
     class AutoPlay
     {
         private Dm.dmsoft dmsoft = new Dm.dmsoft();
@@ -31,10 +37,10 @@ namespace BH3AutoPlay
         public void KeydownThenUp(string key, int millisecond)
         {
             Keydown(key);
-            Sleep(millisecond);
+            Delay(millisecond);
             Keyup(key);
         }
-        public void Sleep(int millisecond)
+        public void Delay(int millisecond)
         {
             Thread.Sleep(millisecond);
         }
@@ -60,7 +66,6 @@ namespace BH3AutoPlay
             dmsoft.MoveTo(btnPos2.X, btnPos2.Y);
             Thread.Sleep(500);
             dmsoft.LeftClick();
-
         }
     }
 }
