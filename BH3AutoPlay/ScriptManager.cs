@@ -29,8 +29,9 @@ namespace BH3AutoPlay
 
         public AutoPlayScriptManager(Form1 form)
         {
-            scripts.Add(new AutoPlay律山紫vs皮皮马31626up37952 (bh3window));
-            scripts.Add(new AutoPlay山粉蓝vs月轮37760非up31146(bh3window));
+            scripts.Add(new AutoPlay鬼圣迅vs贝贝龙31573up37888(bh3window));
+            scripts.Add(new AutoPlay律山紫vs皮皮马31626up37952(bh3window));
+            scripts.Add(new AutoPlay山粉蓝vs月轮37760非up31466(bh3window));
             currentScript = scripts[0];
             this.form = form;
             mainThread = new Thread(new ThreadStart(() =>

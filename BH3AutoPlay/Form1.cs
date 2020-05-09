@@ -49,7 +49,7 @@ namespace BH3AutoPlay
         {
             this.comboBox1.Items.AddRange(scriptManager.GetScriptNames());
             this.comboBox1.SelectedIndex = 0;
-            this.Text = "BH3AutoPlay V" + Application.ProductVersion;
+            this.Text = "凹分神器 V" + Application.ProductVersion;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

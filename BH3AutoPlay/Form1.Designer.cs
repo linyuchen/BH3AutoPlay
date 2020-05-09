@@ -94,17 +94,18 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(200, 370);
+            this.label5.Location = new System.Drawing.Point(200, 401);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(610, 72);
             this.label5.TabIndex = 5;
-            this.label5.Text = "只支持崩坏3PC端，且游戏分辨率是1920x1080或1280x720\r\n如已修改过按键的需要恢复默认按键配置\r\n建议画质调最低，特效全关，帧率锁定在120\r\n";
+            this.label5.Text = "只支持崩坏3PC端，且游戏分辨率是1920x1080或1280x720\r\n如已修改过按键的需要恢复默认按键配置\r\n建议画质调最低，特效全关，帧率一般情况是120\r" +
+    "\n";
             // 
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(875, 537);
+            this.linkLabel2.Location = new System.Drawing.Point(875, 566);
             this.linkLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(82, 24);
@@ -116,7 +117,7 @@
             // linkLabel3
             // 
             this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(779, 487);
+            this.linkLabel3.Location = new System.Drawing.Point(779, 508);
             this.linkLabel3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(178, 24);

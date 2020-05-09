@@ -17,18 +17,18 @@ namespace BH3AutoPlay
     }
     class BH3Window
     {
-        public Point windowPos = new Point();
-        public Point startMarkPos = new Point();
+        public Point windowPos = new Point();  // 游戏窗口左上角坐标
+        public Point startMarkPos = new Point(); // 左上角得分图标坐标，用于判断是否开始了战场
         public Point restartBtnPos1 = new Point();
-        public Point restartBtnPos2 = new Point();
-        public Point shieldPos = new Point();
-        public Point healthPos = new Point();
-        public Point isFightingPos = new Point();
+        public Point restartBtnPos2 = new Point();  
+        public Point shieldPos = new Point();  // boss盾条坐标（左边开头）
+        public Point healthPos = new Point();  // boss血条坐标（左边开头）
+        public Point fightingPos = new Point(); // 左上方的暂停按钮，取黄色来判断按钮是否存在，存在意味着是战斗中
         private Dm.dmsoft dmsoft = new Dm.dmsoft();
-        public string HEALTH_COLOR_ORANGE = "FF9141";  // 第4条血橙色，也是最后一条
+        public string HEALTH_COLOR_PURPLE = "9B59B6";// boss第1条血紫色
+        public string HEALTH_COLOR_BLUE = "3498DB"; // 第2条血蓝色
         public string HEALTH_COLOR_GREEN = "1ABC9C";  //  第3条血绿色
-        public string HEALTH_COLOR_PURPLE = "9B59B6";// 第1条血紫色
-        public string HEALTH_COLOR_BLUE = "3498DB"; // 第2条血紫色
+        public string HEALTH_COLOR_ORANGE = "FF9141";  // 第4条血橙色，一般情况也是最后一条
 
         public void BH3AutoPlay()
         {
@@ -73,11 +73,11 @@ namespace BH3AutoPlay
 
         public bool IsFighting()
         {
-            if (this.isFightingPos.X <= 0 || this.isFightingPos.Y <= 0)
+            if (this.fightingPos.X <= 0 || this.fightingPos.Y <= 0)
             {
                 return false;
             }
-            return this.CheckColor(this.isFightingPos, "FEDF4C");
+            return this.CheckColor(this.fightingPos, "FEDF4C");
         }
 
         public bool IsStart()
@@ -110,8 +110,8 @@ namespace BH3AutoPlay
                         shieldPos.Y = windowPos.Y + 56;
                         healthPos.X = windowPos.X + 568;
                         healthPos.Y = windowPos.Y + 29;
-                        isFightingPos.X = windowPos.X + 52;
-                        isFightingPos.Y = windowPos.Y + 60;
+                        fightingPos.X = windowPos.X + 52;
+                        fightingPos.Y = windowPos.Y + 60;
 
                         return BH3WindowRatio.P1080;
                     }
@@ -127,8 +127,8 @@ namespace BH3AutoPlay
                         shieldPos.Y = windowPos.Y + 38;
                         healthPos.X = windowPos.X + 380;
                         healthPos.Y = windowPos.Y + 22;
-                        isFightingPos.X = windowPos.X + 68;
-                        isFightingPos.Y = windowPos.Y + 24;
+                        fightingPos.X = windowPos.X + 68;
+                        fightingPos.Y = windowPos.Y + 24;
                         return BH3WindowRatio.p720;
                     }
                 default:

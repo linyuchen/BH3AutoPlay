@@ -45,7 +45,10 @@ namespace BH3AutoPlay
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            AutoRegCom("regsvr32 /s " + basePath + "\\dm.dll");
+            string cmd = "regsvr32 /s \"" + basePath + "\\dm.dll\"";
+            //MessageBox.Show(cmd);
+            string regDllResult = AutoRegCom(cmd);
+            Console.WriteLine(regDllResult);
             Application.Run(new Form1());
         }
     }
