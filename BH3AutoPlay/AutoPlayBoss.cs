@@ -17,6 +17,7 @@ namespace BH3AutoPlay
         private Thread autoPlayThread;
         private Thread checkThread;
         public BH3Window bh3window;
+        private static readonly object lockObject = new object();
 
         public AutoPlayScript(BH3Window bh3window)
         {
@@ -43,7 +44,6 @@ namespace BH3AutoPlay
             {
                 checkThread.Abort();
             }
-
         }
 
         public void Start()
@@ -60,14 +60,16 @@ namespace BH3AutoPlay
             checkThread = new Thread(new ThreadStart(
                 () =>
                 {
-                    while (running)
-                    {
 
-                        TimeSpan runingTime = DateTime.Now - this.startTime;
-                        double runningSecond = runingTime.TotalSeconds;
-                        OnCheckTime(runningSecond);
-                        Thread.Sleep(100);
-                    }
+                        while (running)
+                        {
+
+                            TimeSpan runingTime = DateTime.Now - this.startTime;
+                            double runningSecond = runingTime.TotalSeconds;
+                            OnCheckTime(runningSecond);
+                            Thread.Sleep(100);
+                        }
+
                 }
             ));
             checkThread.Start();
@@ -286,7 +288,8 @@ namespace BH3AutoPlay
                     Restart();
                 }
             }
-            else if (16 > runningSecond && runningSecond >= 15.5) { 
+            else if (16 > runningSecond && runningSecond >= 15.5)
+            {
                 // 判断第一波蓄力是否真猫
                 if (bh3window.CheckColor(bh3window.healthPos, bh3window.HEALTH_COLOR_PURPLE))
                 {
@@ -298,9 +301,9 @@ namespace BH3AutoPlay
 
     class AutoPlay鬼圣迅vs贝贝龙31573up37888 : AutoPlayScript
     {
-        public AutoPlay鬼圣迅vs贝贝龙31573up37888(BH3Window bh3window):base(bh3window)
+        public AutoPlay鬼圣迅vs贝贝龙31573up37888(BH3Window bh3window) : base(bh3window)
         {
-            name = "鬼圣迅vs贝贝龙31573up37888";
+            name = "鬼圣迅vs贝贝龙31573(up37888)";
             videoUrl = "https://www.bilibili.com/video/BV1Tt4y117fn";
             description = @"
 1p 3s鬼铠 重磁暴 叶叶牛
@@ -375,7 +378,7 @@ namespace BH3AutoPlay
             Keypress("u");  // 胧光主动
             Delay(600);
             迅雷ab();
-            
+
             Keyup("w");
             Keydown("a");
             Keypress("k");

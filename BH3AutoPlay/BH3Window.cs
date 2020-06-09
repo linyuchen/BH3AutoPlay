@@ -40,7 +40,6 @@ namespace BH3AutoPlay
             String c = dmsoft.GetColor(pos.X, pos.Y);
             //if (color == "FEDF4C")
             //{
-
             //    Console.WriteLine("{0},{1}:{2} {3}", pos.X, pos.Y, c, color);
             //}
             return c.ToLower() == color.ToLower();

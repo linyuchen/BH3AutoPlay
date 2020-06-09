@@ -22,13 +22,14 @@ namespace BH3AutoPlay
         public event ScriptStartStopHandler ScriptStopEvent;
 
         private Thread mainThread;
-
+        private Thread checkRunThread;
         private Form1 form;
-
         private List<AutoPlayScript> scripts = new List<AutoPlayScript>();
+        private static readonly object lockObject = new object();
 
         public AutoPlayScriptManager(Form1 form)
         {
+            scripts.Add(new AutoPlay墨炎真VS冰箱31680up38016(bh3window));
             scripts.Add(new AutoPlay鬼圣迅vs贝贝龙31573up37888(bh3window));
             scripts.Add(new AutoPlay律山紫vs皮皮马31626up37952(bh3window));
             scripts.Add(new AutoPlay山粉蓝vs月轮37760非up31466(bh3window));
@@ -36,29 +37,37 @@ namespace BH3AutoPlay
             this.form = form;
             mainThread = new Thread(new ThreadStart(() =>
             {
-                while (this.running)
+                lock (lockObject)
                 {
-                    if (!bh3window.CheckWindow())
+                    while (running)
                     {
-                        continue;
-                    }
-                    bool isStart = bh3window.IsStart();
-                    Thread.Sleep(10);
-                    if (isStart)
-                    {
-                        ScriptStartEvent();
-                        currentScript.Start();
-                        // 阻塞，等待脚本打完
-                        while (currentScript.running) ;
-                    }
-                    else
-                    {
-                        ScriptStopEvent();
+                        if (!bh3window.CheckWindow())
+                        {
+                            continue;
+                        }
+                        bool isStart = bh3window.IsStart();
+                        Thread.Sleep(10);
+                        if (isStart)
+                        {
+                            Console.WriteLine("start");
+                            ScriptStartEvent();
+                            // 阻塞，等待脚本打完
+                            currentScript.Start();
+                            while (currentScript.running) 
+                            {
+                                Thread.Sleep(100);    
+                            }
+                        }
+                        else
+                        {
+                            ScriptStopEvent();
+                        }
                     }
                 }
             }));
             mainThread.Start();
-            new Thread(new ThreadStart(CheckRunning)).Start();
+            checkRunThread = new Thread(new ThreadStart(CheckRunning)); 
+            checkRunThread.Start();
         }
 
         private void CheckRunning()
@@ -66,19 +75,23 @@ namespace BH3AutoPlay
             lostRuningCount = 0;
             while (running)
             {
+                //Console.WriteLine("check run");
                 if (!bh3window.IsFighting())
                 {
-                    if (lostRuningCount >= 2)
+                    //Console.WriteLine("not run");
+                    if (lostRuningCount >= 1)
                     {
                         currentScript.Stop();
                         currentScript.ReleaseKeyup();
-                        Console.WriteLine("丢失");
-                        Thread.Sleep(2000);
+                        //Console.WriteLine("丢失");
+                        ScriptStopEvent();
+                        //while (!currentScript.running) ;
                     }
                     lostRuningCount += 1;
                 }
                 else
                 {
+                    //Console.WriteLine("run");
                     lostRuningCount = 0;
                 }
                 Thread.Sleep(1000);
@@ -94,7 +107,7 @@ namespace BH3AutoPlay
         {
             String[] names = new String[scripts.Count];
 
-            for(int i=0; i<scripts.Count; i++)
+            for (int i = 0; i < scripts.Count; i++)
             {
                 names[i] = scripts[i].name;
             }
@@ -105,6 +118,8 @@ namespace BH3AutoPlay
         {
             running = false;
             currentScript.Stop();
+            mainThread.Abort();
+            checkRunThread.Abort();
         }
     }
 }
