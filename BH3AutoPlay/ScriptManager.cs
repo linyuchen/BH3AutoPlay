@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BH3AutoPlay.boss;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,7 @@ namespace BH3AutoPlay
 
         public AutoPlayScriptManager(Form1 form)
         {
+            scripts.Add(new AutoPlay鬼圣轮vs皮皮马31733up38080(bh3window));
             scripts.Add(new AutoPlay墨炎真VS冰箱31680up38016(bh3window));
             scripts.Add(new AutoPlay鬼圣迅vs贝贝龙31573up37888(bh3window));
             scripts.Add(new AutoPlay律山紫vs皮皮马31626up37952(bh3window));
@@ -41,12 +43,12 @@ namespace BH3AutoPlay
                 {
                     while (running)
                     {
+                        Thread.Sleep(10);
                         if (!bh3window.CheckWindow())
                         {
                             continue;
                         }
                         bool isStart = bh3window.IsStart();
-                        Thread.Sleep(10);
                         if (isStart)
                         {
                             Console.WriteLine("start");

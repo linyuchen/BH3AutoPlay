@@ -35,14 +35,20 @@ namespace BH3AutoPlay
 
         }
 
-        public bool CheckColor(Point pos, String color)
+        public bool CheckColor(Point pos, String color, double sim=1)
         {
-            String c = dmsoft.GetColor(pos.X, pos.Y);
-            //if (color == "FEDF4C")
-            //{
-            //    Console.WriteLine("{0},{1}:{2} {3}", pos.X, pos.Y, c, color);
-            //}
-            return c.ToLower() == color.ToLower();
+            if (sim == 1)
+            {
+
+                String c = dmsoft.GetColor(pos.X, pos.Y);
+                return c.ToLower() == color.ToLower();
+            }
+            else
+            {
+
+                int result = dmsoft.CmpColor(pos.X, pos.Y, color, sim);
+                return result == 0;
+            }
         }
 
         public bool CheckBossAlive()
@@ -88,9 +94,9 @@ namespace BH3AutoPlay
             return this.CheckColor(this.startMarkPos, "0060ff");
         }
         //是否破盾
-        public bool ShieldIsDestroy()
+        public bool CheckShieldIsDestroy()
         {
-            return !CheckColor(shieldPos, "FFC741");
+            return !CheckColor(shieldPos, "FFC741", 0.9);
         }
 
         private BH3WindowRatio CalcPos(uint windowLength)

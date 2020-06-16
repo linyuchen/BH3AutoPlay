@@ -16,23 +16,40 @@ namespace BH3AutoPlay
     }
     class AutoPlay
     {
-        private Dm.dmsoft dmsoft = new Dm.dmsoft();
+        public Dm.dmsoft dmsoft = new Dm.dmsoft();
         private bool suspend = false;
 
-        public void Keypress(string key)
+        public void SuspendAction()
+        {
+            this.suspend = true;
+        }
+        public void ResumeAction()
+        {
+            this.suspend = false;
+        }
+        public void Keypress(string key, bool ignoreSuspend=false)
         {
             dmsoft.KeyPressChar(key);
-            while (suspend) ;
+            if (!ignoreSuspend)
+            {
+                while (suspend) ;
+            }
         }
-        public void Keyup(string key)
+        public void Keyup(string key, bool ignoreSuspend=false)
         {
             dmsoft.KeyUpChar(key);
-            while (suspend) ;
+            if (!ignoreSuspend)
+            {
+                while (suspend) ;
+            }
         }
-        public void Keydown(string key)
+        public void Keydown(string key, bool ignoreSuspend=false)
         {
             dmsoft.KeyDownChar(key);
-            while (suspend) ;
+            if (!ignoreSuspend)
+            {
+                while (suspend) ;
+            }
         }
         public void KeydownThenUp(string key, int millisecond)
         {
@@ -68,4 +85,101 @@ namespace BH3AutoPlay
             dmsoft.LeftClick();
         }
     }
+    class AutoPlayScript : AutoPlay
+    {
+        public String name;
+        public String description;
+        public String videoUrl;
+        public DateTime startTime;
+        public bool running = false;
+        private Thread autoPlayThread;
+        private Thread checkThread;
+        public BH3Window bh3window;
+        private static readonly object lockObject = new object();
+
+        public AutoPlayScript(BH3Window bh3window)
+        {
+            this.bh3window = bh3window;
+        }
+        public void Pause()
+        {
+            this.SuspendAction();
+
+            Keypress("esc", true);
+            Delay(2000);
+            Keypress("~", true);
+            Delay(200);
+            this.ResumeAction();
+        }
+
+
+        public virtual void OnRestart()
+        {
+
+        }
+        public void Restart()
+        {
+            OnRestart();
+            Restart(bh3window.restartBtnPos1, bh3window.restartBtnPos2);
+            Stop();
+            Thread.Sleep(2000);
+            Start();
+        }
+
+        public void Stop()
+        {
+
+            running = false;
+            if (autoPlayThread != null)
+            {
+                autoPlayThread.Abort();
+            }
+            if (checkThread != null)
+            {
+                checkThread.Abort();
+            }
+        }
+
+        public void Start()
+        {
+            running = true;
+            startTime = DateTime.Now;
+            autoPlayThread = new Thread(new ThreadStart(
+                () =>
+                {
+                    Delay(200);
+                    Action();
+                }
+            ));
+            checkThread = new Thread(new ThreadStart(
+                () =>
+                {
+
+                    while (running)
+                    {
+
+                        TimeSpan runingTime = DateTime.Now - this.startTime;
+                        double runningSecond = runingTime.TotalSeconds;
+                        OnCheckTime(runningSecond);
+                        Thread.Sleep(100);
+                    }
+
+                }
+            ));
+            checkThread.Start();
+            autoPlayThread.Start();
+        }
+
+        protected virtual void OnCheckTime(double runningSecond)
+        {
+
+        }
+
+        public virtual void Action()
+        {
+
+        }
+
+    }
+
 }
